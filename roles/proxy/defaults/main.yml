@@ -1,0 +1,3 @@
+proxy_port: 8910
+proxy_packages:
+  - squid

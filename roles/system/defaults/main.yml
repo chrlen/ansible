@@ -1,0 +1,8 @@
+system_username: me
+system_packages:
+  - vim
+  - htop
+  - neofetch
+  - tmux
+  - git
+  - zsh

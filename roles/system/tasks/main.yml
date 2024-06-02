@@ -1,0 +1,4 @@
+- ansible.builtin.include_tasks: hostname.yml
+- ansible.builtin.include_tasks: essential.yml
+- ansible.builtin.include_tasks: user.yml
+- ansible.builtin.include_tasks: ssh.yml

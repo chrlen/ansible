@@ -1,0 +1,7 @@
+- name: Restart sshd
+  ansible.builtin.service:
+    name: ssh
+    enabled: true
+    state: restarted
+  become: true
+  when: sshd_config.changed

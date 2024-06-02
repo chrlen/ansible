@@ -1,0 +1,9 @@
+---
+- name: Apply roles
+  hosts: remote
+  become: true
+
+  roles:
+    - role: system
+    # - role: docker
+    # - role: proxy

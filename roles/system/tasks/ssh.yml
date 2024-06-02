@@ -1,0 +1,79 @@
+- name: Configure SSH
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^GSSAPIAuthentication"
+    line: "GSSAPIAuthentication no"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Deactivate UsePAM
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^UsePAM"
+    line: "UsePAM no"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Deactivate root login
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin^"
+    line: "PermitRootLogin no"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Deactivate Password authentication
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication^"
+    line: "PasswordAuthentication no"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Deactivate X11 forward
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "X11Forwarding yes"
+    line: "X11Forwarding no"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Set sshd port
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "#Port 22"
+    line: "Port {{ port }}"
+    state: present
+    backup: true
+  become: true
+  register: sshd_config
+
+- name: Enable sshd
+  ansible.builtin.service:
+    name: ssh
+    enabled: true
+  become: true
+
+- name: daemon-reload
+  ansible.builtin.systemd:
+    daemon-reload: true
+  become: true
+  when: sshd_config.changed
+
+- name: Restart sshd
+  ansible.builtin.service:
+    name: ssh
+    enabled: true
+    state: restarted
+  become: true
+  when: sshd_config.changed

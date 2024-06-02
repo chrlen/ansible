@@ -1,0 +1,7 @@
+username: me
+packages:
+  - vim
+  - htop
+  - neofetch
+  - tmux
+  - git

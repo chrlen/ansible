@@ -1,0 +1,46 @@
+- name: Add user me
+  ansible.builtin.user:
+    name: me
+    shell: "/usr/bin/zsh"
+    create_home: true
+    groups: sudo, docker, users
+
+- name: Install .zshrc
+  ansible.builtin.command: "touch /home/{{ system_username }}/.zshrc"
+  args:
+    creates: "/home/{{ system_username }}/.zshrc"
+
+# - name: Install Oh-my-zsh
+#   ansible.builtin.command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#
+#   args:
+#     creates: "/home/{{ system_username }}/.oh-my-zsh"
+
+- name: Setup .vimrc
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/chrlen/config/main/files/.vimrc
+    dest: "/home/{{ system_username }}/.vimrc"
+
+- name: Setup .tmux
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/chrlen/config/main/files/.tmux.conf
+    dest: "/home/{{ system_username }}/.tmux.conf"
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: "https://github.com/chrlen/config.git"
+    dest: "/home/{{ system_username }}/git/config"
+
+- name: Passwordless sudo
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers
+    regexp: "^%wheel"
+    line: " {{ username }} ALL=(ALL) NOPASSWD: ALL"
+    backup: true
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Set authorized key taken from file
+  ansible.posix.authorized_key:
+    user: me
+    state: present
+    key: "{{ lookup('file', '/Users/me/.ssh/derelict.pub') }}"

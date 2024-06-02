@@ -1,0 +1,29 @@
+- name: Install required system packages
+  ansible.builtin.apt:
+    pkg: "{{ proxy_packages }}"
+    state: present
+    update_cache: true
+  become: true
+# - name: Copy config file
+#   ansible.builtin.template:
+#     src: /templates/squid.conf.j2
+#     dest: /etc/squid/squid.conf
+#     owner: root
+#     group: root
+#     mode: "0644"
+#   become: true
+#   register: squid_config
+#
+# - name: Enable squid
+#   ansible.builtin.service:
+#     name: squid
+#     enable: true
+#   become: true
+#
+# - name: Ensure squid is running
+#   ansible.builtin.service:
+#     name: squid
+#     state: restarted
+#   become: true
+#   when: squid_config
+#
