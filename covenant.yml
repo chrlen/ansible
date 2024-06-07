@@ -1,0 +1,7 @@
+---
+- name: Apply roles
+  hosts: covenant
+  become: true
+
+  roles:
+    - role: system

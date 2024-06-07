@@ -1,0 +1,8 @@
+packages:
+  - vim
+  - htop
+  - neofetch
+  - tmux
+  - git
+  - gimp
+  - yakuake

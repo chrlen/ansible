@@ -43,4 +43,4 @@
   ansible.posix.authorized_key:
     user: me
     state: present
-    key: "{{ lookup('file', '/Users/me/.ssh/derelict.pub') }}"
+    key: "{{ lookup('file', '/Users/me/.ssh/{{hostname}}.pub') }}"

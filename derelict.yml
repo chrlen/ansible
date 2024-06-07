@@ -1,9 +1,10 @@
 ---
 - name: Apply roles
-  hosts: remote
+  hosts: derelict
   become: true
 
   roles:
     - role: system
     - role: docker
     - role: proxy
+    #- role: actions-runner-docker-images
