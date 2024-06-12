@@ -1,0 +1,8 @@
+---
+- name: Apply roles
+  hosts: sephora
+  become: false
+
+  roles:
+    - role: mac
+    

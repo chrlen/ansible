@@ -1,5 +1,5 @@
 [macos]
-sephora ansible_host=localhost
+sephora ansible_host=localhost ansible_connection=local
 
 [remote]
 derelict ansible_host=178.254.42.20 ansible_user=me ansible_connection=ssh ansible_ssh_private_key_file=/Users/me/.ssh/derelict hostname=derelict ansible_ssh_port=3183 port=3183

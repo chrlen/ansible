@@ -1,0 +1,15 @@
+brew_packages:
+  [
+    htop,
+    gimp,
+    alt-tab,
+    altserver,
+    element,
+    inkscape,
+    kitty,
+    monitorcontrol,
+    nextcloud,
+    cask/syncthing,
+    vlc,
+    rar,
+  ]
