@@ -5,6 +5,13 @@
     create_home: true
     groups: sudo, docker, users
 
+- name: Add user git
+  ansible.builtin.user:
+    name: git
+    shell: "/usr/bin/zsh"
+    create_home: true
+    groups: users
+
 - name: Install .zshrc
   ansible.builtin.command: "touch /home/{{ system_username }}/.zshrc"
   args:
@@ -42,5 +49,17 @@
 - name: Set authorized key taken from file
   ansible.posix.authorized_key:
     user: me
+    state: present
+    key: "{{ lookup('file', '/Users/me/.ssh/{{hostname}}.pub') }}"
+
+- name: Add user git
+  ansible.builtin.user:
+    name: git
+    shell: "/usr/bin/zsh"
+    create_home: true
+
+- name: Set authorized key taken from file
+  ansible.posix.authorized_key:
+    user: git
     state: present
     key: "{{ lookup('file', '/Users/me/.ssh/{{hostname}}.pub') }}"
